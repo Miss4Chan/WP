@@ -18,5 +18,15 @@ public class DataHolder {
     public void init()
     {
         //list filling
+        balloonList.add(new Balloon("one","Desc balloon 1"));
+        balloonList.add(new Balloon("two","Desc balloon 2"));
+        balloonList.add(new Balloon("three","Desc balloon 3"));
+        balloonList.add(new Balloon("four","Desc balloon 4"));
+        balloonList.add(new Balloon("five","Desc balloon 5"));
+        balloonList.add(new Balloon("six","Desc balloon 6"));
+        balloonList.add(new Balloon("seven","Desc balloon 7"));
+        balloonList.add(new Balloon("eight","Desc balloon 8"));
+        balloonList.add(new Balloon("nine","Desc balloon 9"));
+        balloonList.add(new Balloon("ten","Desc balloon 10"));
     }
 }

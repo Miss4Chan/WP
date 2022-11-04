@@ -11,27 +11,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="select-balloon-servlet",urlPatterns = "/selectBalloon")
-public class SelectBalloonServlet extends HttpServlet {
+@WebServlet(name="balloon-order-servlet",urlPatterns = "/BalloonOrder.do")
+public class BalloonOrderServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
 
-    public SelectBalloonServlet(SpringTemplateEngine springTemplateEngine) {
+    public BalloonOrderServlet(SpringTemplateEngine springTemplateEngine) {
         this.springTemplateEngine = springTemplateEngine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req,resp, req.getServletContext());
-        this.springTemplateEngine.process("selectBalloonSize.html",context,resp.getWriter());
+        this.springTemplateEngine.process("deliveryInfo.html",context,resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String size = req.getParameter("size");
+        String clientName = req.getParameter("clientName");
+        String deliveryAddress = req.getParameter("clientAddress");
         Order order = (Order) req.getSession().getAttribute("order");
-        order.setBalloonSize(size);
-        WebContext context = new WebContext(req,resp,req.getServletContext());
+        order.setClientName(clientName);
+        order.setClientAddress(deliveryAddress);
         req.getSession().setAttribute("order",order);
-        resp.sendRedirect("/BalloonOrder.do");
+        resp.sendRedirect("/ConfirmationInfo");
     }
 }
+

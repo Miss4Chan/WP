@@ -1,6 +1,6 @@
 package com.example.lab.webServlet;
 
-import com.example.lab.model.Order;
+
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -11,27 +11,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="select-balloon-servlet",urlPatterns = "/selectBalloon")
-public class SelectBalloonServlet extends HttpServlet {
-    private final SpringTemplateEngine springTemplateEngine;
+@WebServlet(name = "ConfirmationInfoServlet",urlPatterns = "/ConfirmationInfo")
+public class ConfirmationInfoServlet extends HttpServlet {
+    SpringTemplateEngine springTemplateEngine;
 
-    public SelectBalloonServlet(SpringTemplateEngine springTemplateEngine) {
+    public ConfirmationInfoServlet(SpringTemplateEngine springTemplateEngine) {
         this.springTemplateEngine = springTemplateEngine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req,resp, req.getServletContext());
-        this.springTemplateEngine.process("selectBalloonSize.html",context,resp.getWriter());
+        String ipAddress = req.getRemoteAddr();
+        String clientBrowser = req.getHeader("User-Agent");
+        context.setVariable("ipAddress",ipAddress);
+        context.setVariable("clientBrowser",clientBrowser);
+        this.springTemplateEngine.process("confirmationInfo.html",context,resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String size = req.getParameter("size");
-        Order order = (Order) req.getSession().getAttribute("order");
-        order.setBalloonSize(size);
-        WebContext context = new WebContext(req,resp,req.getServletContext());
-        req.getSession().setAttribute("order",order);
-        resp.sendRedirect("/BalloonOrder.do");
+        resp.sendRedirect("/logout");
     }
+
 }
