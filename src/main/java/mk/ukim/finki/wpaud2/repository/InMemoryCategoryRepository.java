@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class InMemoryCategoryRepository {
     public List<Category> findAll()
     {
-        return DataHolder.categoryList;
+        return DataHolder.categories;
     }
     public Category save(Category c)
     {
@@ -20,23 +20,23 @@ public class InMemoryCategoryRepository {
         {
             return null;
         }
-        DataHolder.categoryList.removeIf(i->i.getName().equals(c.getName()));
-        DataHolder.categoryList.add(c);
+        DataHolder.categories.removeIf(i->i.getName().equals(c.getName()));
+        DataHolder.categories.add(c);
         return c;
     }
-    public Optional<Category> findByName(String name)
+    public Optional<Category> findById(Long id)
     {
-        return DataHolder.categoryList.stream().filter(i->i.getName().equals(name)).findFirst();
+        return DataHolder.categories.stream().filter(i->i.getId().equals(id)).findFirst();
     }
     public List<Category> search (String text)
     {
-        return DataHolder.categoryList.stream()
-                .filter(i->i.getName().contains(text)||i.getDesc().contains(text)).collect(Collectors.toList());
+        return DataHolder.categories.stream()
+                .filter(i->i.getName().contains(text)||i.getDescription().contains(text)).collect(Collectors.toList());
     }
     public void delete(String name)
     {
         if(name==null)
             return;
-        DataHolder.categoryList.removeIf(i->i.getName().equals(name));
+        DataHolder.categories.removeIf(i->i.getName().equals(name));
     }
 }

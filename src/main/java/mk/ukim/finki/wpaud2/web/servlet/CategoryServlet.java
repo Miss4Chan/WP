@@ -79,7 +79,7 @@ Already added as a model in the model package
         writer.println("</br>");
         writer.println("<h3>Category list</h3>");
         writer.println("<ul>");
-        categoryService.listCategories().forEach(i->writer.format("<li>%s (%s)</li>",i.getName(),i.getDesc()));
+        categoryService.listCategories().forEach(i->writer.format("<li>%s (%s)</li>",i.getName(),i.getDescription()));
         writer.println("</ul>");
         writer.println("<h3>Add Category</h3>");
 
