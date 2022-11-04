@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>WP-aud-2</title>
+</head>
+<body>
+<h3>Request Info</h3>
+<div>IP Address:<th:block th:text="${ipAddress}"></th:block></div>
+<div>User Agent:<th:block th:text="${clientAgent}"></th:block></div>
+<th:block th:if="${session.user!=null}">
+<h3>User Info</h3>
+<div>Username:<th:block th:text="${session.user.username}"></th:block></div>
+<div>Name:<th:block th:text="${session.user.name}"></th:block></div>
+<div>Surname:<th:block th:text="${session.user.surname}"></th:block></div>
+<div><a href="/logout">Logout</a></div>
+</th:block>
+
+<h3>Category list</h3>
+<ul>
+    <li th:each="category : ${categories}"><th:block th:text="${category.name}"></th:block></li>
+</ul>
+
+<h3>Add Category</h3>
+<form th:method="POST" th:action="@{/servlet/thymeleaf/category}">
+    <label for='name'>Name:</label>
+    <input id='name' type='text' name='name'/>
+
+    <label for='desc'>Description:</label>
+    <input id='desc' type='text' name='desc'/>
+
+    <input type='submit' value='Submit'/>
+</form>
+</body>
+</html>
