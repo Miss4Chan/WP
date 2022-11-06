@@ -17,10 +17,11 @@
 <main>
     <ul>
         <li th:each="balloon : ${balloons}">
-            <th:block th:text="${balloon.name}"></th:block>
+            <th:block th:text="${balloon.getName()}"></th:block>
+            <th:block th:text="${balloon.getDescription()}"></th:block>
         </li>
     </ul>
-    <form th:method="POST">
+    <form th:method="POST" th:action="@{/selectBalloonSize}">
     <h2>Choose balloon color:</h2>
     <label>
         <input type="radio" name="color" value="Red Balloon">

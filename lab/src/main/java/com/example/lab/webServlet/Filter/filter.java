@@ -22,8 +22,8 @@ public class filter implements Filter {
         Order order = (Order) request.getSession().getAttribute("order");
         String path = request.getServletPath();
 
-        if (!"".equals(path) && order.getBalloonColor() == null) {
-            response.sendRedirect("/");
+        if (!"".equals(path) && !"/balloons".equals(path) && order == null) {
+            response.sendRedirect("/balloons");
         }
 //        else if("/selectBalloon".equals(path) && order.getBalloonSize()==null){
 //            response.sendRedirect("/selectBalloon");

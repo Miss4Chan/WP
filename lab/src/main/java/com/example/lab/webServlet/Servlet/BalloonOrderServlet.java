@@ -1,4 +1,4 @@
-package com.example.lab.webServlet;
+package com.example.lab.webServlet.Servlet;
 
 import com.example.lab.model.Order;
 import org.thymeleaf.context.WebContext;

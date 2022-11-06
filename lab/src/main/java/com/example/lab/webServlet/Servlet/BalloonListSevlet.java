@@ -1,6 +1,7 @@
-package com.example.lab.webServlet;
+package com.example.lab.webServlet.Servlet;
 
 import com.example.lab.model.Order;
+import com.example.lab.service.BalloonService;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -10,28 +11,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Random;
 
-@WebServlet(name="select-balloon-servlet",urlPatterns = "/selectBalloon")
-public class SelectBalloonServlet extends HttpServlet {
+@WebServlet(name="balloon-list-servlet",urlPatterns = "/Servlet")
+public class BalloonListSevlet extends HttpServlet {
+    private final BalloonService balloonService;
     private final SpringTemplateEngine springTemplateEngine;
 
-    public SelectBalloonServlet(SpringTemplateEngine springTemplateEngine) {
+    public BalloonListSevlet(BalloonService balloonService, SpringTemplateEngine springTemplateEngine) {
+        this.balloonService = balloonService;
         this.springTemplateEngine = springTemplateEngine;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        WebContext context = new WebContext(req,resp, req.getServletContext());
-        this.springTemplateEngine.process("selectBalloonSize.html",context,resp.getWriter());
+        WebContext context = new WebContext(req,resp,req.getServletContext());
+        context.setVariable("balloons", this.balloonService.listAll());
+        this.springTemplateEngine.process("listBalloons.html", context,resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String size = req.getParameter("size");
-        Order order = (Order) req.getSession().getAttribute("order");
-        order.setBalloonSize(size);
+        String color = req.getParameter("color");
+        Long Id = new Random().nextLong();
+        Order order = new Order(color,"","","",Id);
         WebContext context = new WebContext(req,resp,req.getServletContext());
         req.getSession().setAttribute("order",order);
-        resp.sendRedirect("/BalloonOrder.do");
+        resp.sendRedirect("/selectBalloon");
     }
 }
