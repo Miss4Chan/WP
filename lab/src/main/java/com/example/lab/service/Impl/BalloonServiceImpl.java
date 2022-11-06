@@ -42,4 +42,10 @@ public class BalloonServiceImpl implements BalloonService {
     public void deleteById(Long id) {
         balloonRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Balloon> findById(Long id) {
+        return balloonRepository.findById(id);
+    }
+
 }

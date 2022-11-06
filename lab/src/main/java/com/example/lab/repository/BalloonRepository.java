@@ -17,7 +17,7 @@ public class BalloonRepository {
     }
     public Optional<Balloon> save(String name, String desc,
                                   Manufacturer manufacturer) {
-        DataHolder.balloonList.removeIf(i -> i.getName().equals(name));
+        DataHolder.balloonList.removeIf(i -> i.getName().equals(name)||i.getDescription().equals(desc) || i.getManufacturer().equals(manufacturer));
         Balloon balloon = new Balloon(name, desc, manufacturer);
         DataHolder.balloonList.add(balloon);
         return Optional.of(balloon);
@@ -25,5 +25,9 @@ public class BalloonRepository {
     public void deleteById(Long id)
     {
         DataHolder.balloonList.removeIf(i->i.getId().equals(id));
+    }
+    public Optional<Balloon> findById(Long id)
+    {
+        return DataHolder.balloonList.stream().filter(i->i.getId().equals(id)).findFirst();
     }
 }

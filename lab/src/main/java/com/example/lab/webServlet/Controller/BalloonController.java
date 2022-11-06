@@ -5,8 +5,8 @@ import com.example.lab.model.Manufacturer;
 import com.example.lab.model.Order;
 import com.example.lab.service.BalloonService;
 import com.example.lab.service.ManufacturerService;
+import com.example.lab.service.OrderService;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +19,12 @@ import java.util.Random;
 public class BalloonController {
     private final BalloonService balloonService;
     private final ManufacturerService manufacturerService;
+    private  final OrderService orderService;
 
-    public BalloonController(BalloonService balloonService, ManufacturerService manufacturerService) {
+    public BalloonController(BalloonService balloonService, ManufacturerService manufacturerService, OrderService orderService) {
         this.balloonService = balloonService;
         this.manufacturerService = manufacturerService;
+        this.orderService = orderService;
     }
 
     @GetMapping
@@ -32,12 +34,30 @@ public class BalloonController {
         model.addAttribute("balloons", balloons);
         return "listBalloons";
     }
-    @PostMapping("/balloons/add")
-    public String saveBalloon(@RequestParam String name,
-                              @RequestParam String desc,
-                              @RequestParam Long manufacturerId)
+    @GetMapping("/edit-balloon/{id}")
+    public String getEditBalloonPage(@PathVariable Long id, Model model) {
+        if(this.balloonService.findById(id).isPresent()){
+            Balloon balloon = this.balloonService.findById(id).get();
+            List<Manufacturer> manufacturers = this.manufacturerService.findAll();
+            model.addAttribute("manufacturers", manufacturers);
+            model.addAttribute("balloon", balloon);
+            return "add-balloon";
+        }
+        return "redirect:/products?error=ProductNotFound";
+    }
+    @GetMapping("/add-balloon")
+    public String getAddBalloonPage(Model model)
     {
-        this.balloonService.save(name,desc,manufacturerId);
+        List<Manufacturer> manufacturers = this.manufacturerService.findAll();
+        model.addAttribute("manufacturers", manufacturers);
+        return "add-balloon";
+    }
+    @PostMapping("/add")
+    public String saveBalloon(@RequestParam String name,
+                              @RequestParam String description,
+                              @RequestParam Long manufacturer)
+    {
+        this.balloonService.save(name,description, manufacturer);
         return "redirect:/balloons";
     }
     @DeleteMapping("/delete/{id}")
@@ -50,9 +70,33 @@ public class BalloonController {
     public String chosenColor(HttpServletRequest request, Model model)
     {
         String color = request.getParameter("color");
-        Long Id = new Random().nextLong();
-        Order order = new Order(color,"","","",Id);
+        Order order = new Order(color,"","","");
         request.getSession().setAttribute("order",order);
         return "selectBalloonSize";
+    }
+    @PostMapping("/selectBalloonSize")
+    public String chosenSize(HttpServletRequest request, Model model)
+    {
+        String size = request.getParameter("size");
+        Order order = (Order) request.getSession().getAttribute("order");
+        order.setBalloonSize(size);
+        request.getSession().setAttribute("order",order);
+        return "deliveryInfo";
+    }
+    @PostMapping("/deliveryInfo")
+    public String deliveryInfo(HttpServletRequest request, Model model)
+    {
+        String clientName = request.getParameter("clientName");
+        String deliveryAddress = request.getParameter("clientAddress");
+        String ipAddress = request.getRemoteAddr();
+        String clientBrowser = request.getHeader("User-Agent");
+        Order order = (Order) request.getSession().getAttribute("order");
+        order.setClientName(clientName);
+        order.setClientAddress(deliveryAddress);
+        request.getSession().setAttribute("order",order);
+        orderService.placeOrder(order.getBalloonColor(),order.getBalloonSize(),order.getClientName(),order.getClientAddress());
+        model.addAttribute("ipAddress",ipAddress);
+        model.addAttribute("clientBrowser",clientBrowser);
+        return "confirmationInfo";
     }
 }

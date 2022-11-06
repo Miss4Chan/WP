@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xlmns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
+    <meta>
     <title>Balloon Order page - Welcome and choose a Balloon</title>
     <style type="text/css">
         body {
@@ -19,8 +19,15 @@
         <li th:each="balloon : ${balloons}">
             <th:block th:text="${balloon.getName()}"></th:block>
             <th:block th:text="${balloon.getDescription()}"></th:block>
+            <th:block><form th:action="@{'/balloons/delete/{id}' (id=${balloon.getId()})}" th:method="DELETE">
+                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+            </form></th:block>
+            <th:block><a th:href="@{'/balloons/edit-balloon/{id}' (id=${balloon.getId()})}" class="btn btn-sm btn-info">Edit</a></th:block>
         </li>
     </ul>
+    <div>
+        <a href="/balloons/add-balloon">Add new balloon</a>
+    </div>
     <form method="POST" action="/balloons/selectBalloon">
     <h2>Choose balloon color:</h2>
     <label>
