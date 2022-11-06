@@ -32,14 +32,14 @@ public class BalloonController {
         model.addAttribute("balloons", balloons);
         return "listBalloons";
     }
-//    @PostMapping("/balloons/add")
-//    public String saveBalloon(@RequestParam String name,
-//                              @RequestParam String desc,
-//                              @RequestParam Long manufacturerId)
-//    {
-//        this.balloonService.save(name,desc,manufacturerId);
-//        return "redirect:/balloons";
-//    }
+    @PostMapping("/balloons/add")
+    public String saveBalloon(@RequestParam String name,
+                              @RequestParam String desc,
+                              @RequestParam Long manufacturerId)
+    {
+        this.balloonService.save(name,desc,manufacturerId);
+        return "redirect:/balloons";
+    }
     @DeleteMapping("/delete/{id}")
     public String deleteBalloon(@PathVariable Long id)
     {
@@ -52,8 +52,7 @@ public class BalloonController {
         String color = request.getParameter("color");
         Long Id = new Random().nextLong();
         Order order = new Order(color,"","","",Id);
-        model.addAttribute("order",order);
         request.getSession().setAttribute("order",order);
-        return "redirect:/selectBalloonSize";
+        return "selectBalloonSize";
     }
 }

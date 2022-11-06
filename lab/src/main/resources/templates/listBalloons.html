@@ -21,7 +21,7 @@
             <th:block th:text="${balloon.getDescription()}"></th:block>
         </li>
     </ul>
-    <form th:method="POST" th:action="@{/selectBalloonSize}">
+    <form method="POST" action="/balloons/selectBalloon">
     <h2>Choose balloon color:</h2>
     <label>
         <input type="radio" name="color" value="Red Balloon">
@@ -37,7 +37,7 @@
     </label> Blue Balloon<br/>
 
     <br/>
-        <input type="submit" th:value="Submit">
+        <input type="submit" value="Submit">
     </form>
 </main>
 </body>
