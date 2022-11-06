@@ -99,4 +99,11 @@ public class BalloonController {
         model.addAttribute("clientBrowser",clientBrowser);
         return "confirmationInfo";
     }
+    @GetMapping("/orders")
+    public String getOrdersPage(Model model)
+    {
+        List<Order> orders = orderService.listAll();
+        model.addAttribute("orders",orders);
+        return "userOrders";
+    }
 }

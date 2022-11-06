@@ -34,7 +34,7 @@ public class BalloonListSevlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String color = req.getParameter("color");
         Long Id = new Random().nextLong();
-        Order order = new Order(color,"","","",Id);
+        Order order = new Order(color,"","","");
         WebContext context = new WebContext(req,resp,req.getServletContext());
         req.getSession().setAttribute("order",order);
         resp.sendRedirect("/selectBalloon");
