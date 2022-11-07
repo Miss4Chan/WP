@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 @WebFilter
 public class filter implements Filter {
     @Override
@@ -21,20 +24,14 @@ public class filter implements Filter {
 
         Order order = (Order) request.getSession().getAttribute("order");
         String path = request.getServletPath();
-
         if (!"".equals(path) && order.getBalloonColor() == null) {
             response.sendRedirect("/");
         }
-//        else if("/selectBalloon".equals(path) && order.getBalloonSize()==null){
-//            response.sendRedirect("/selectBalloon");
-    else
-
-    {
-        filterChain.doFilter(servletRequest, servletResponse);
-    }
-
+        else
+        {
+          filterChain.doFilter(servletRequest, servletResponse);
+        }
 }
-
     @Override
     public void destroy() {
         Filter.super.destroy();

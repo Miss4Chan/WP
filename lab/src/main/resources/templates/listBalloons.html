@@ -20,11 +20,14 @@
             <th:block th:text="${balloon.name}"></th:block>
         </li>
     </ul>
+    <form>
+        <input type="text" name="colorFilter">
+    </form>
     <form th:method="POST">
     <h2>Choose balloon color:</h2>
-    <label>
-        <input type="radio" name="color" value="Red Balloon">
-    </label> Red Balloon<br/>
+        <label>
+            <input type="radio" name="color" value="Red Balloon">
+        </label> Red Balloon<br/>
     <label>
         <input type="radio" name="color" value="Green Balloon">
     </label> Green Balloon<br/>
@@ -34,7 +37,6 @@
     <label>
         <input type="radio" name="color" value="Blue Balloon">
     </label> Blue Balloon<br/>
-
     <br/>
         <input type="submit" th:value="Submit">
     </form>

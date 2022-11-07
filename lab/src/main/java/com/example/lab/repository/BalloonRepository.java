@@ -13,4 +13,9 @@ public class BalloonRepository {
         return DataHolder.balloonList.stream().filter(b->b.getName().contains(text)
         || b.getDescription().contains(text)).collect(Collectors.toList());
     }
+    public List<Balloon> listWithoutColor(String s)
+    {
+        return DataHolder.balloonList.stream()
+                .filter(b->!b.getName().equals(s)).collect(Collectors.toList());
+    }
 }

@@ -24,4 +24,10 @@ public class BalloonServiceImpl implements BalloonService {
     public List<Balloon> searchByNameOrDescription(String text) {
         return balloonRepository.findAllByNameOrDescription(text);
     }
+
+    @Override
+    public List<Balloon> listWithoutColor(String s) {
+        return balloonRepository.listWithoutColor(s);
+    }
+
 }
