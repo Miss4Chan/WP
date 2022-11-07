@@ -1,5 +1,6 @@
 package com.example.lab.service.Impl;
 
+import com.example.lab.bootstrap.DataHolder;
 import com.example.lab.model.Balloon;
 import com.example.lab.model.Exceptions.ManufacturerNotFoundException;
 import com.example.lab.model.Manufacturer;
@@ -46,6 +47,11 @@ public class BalloonServiceImpl implements BalloonService {
     @Override
     public Optional<Balloon> findById(Long id) {
         return balloonRepository.findById(id);
+    }
+
+    @Override
+    public int getCounter() {
+        return DataHolder.counter;
     }
 
 }

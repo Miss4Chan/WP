@@ -13,4 +13,5 @@ public interface BalloonService {
     Optional<Balloon> save(String name, String desc, Long manufacturerId);
     void deleteById(Long id);
     Optional<Balloon> findById(Long id);
+    int getCounter();
 }

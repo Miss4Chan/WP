@@ -31,7 +31,9 @@ public class BalloonController {
     public String getBalloonsPage(@RequestParam(required = false) String error, Model model)
     {
         List<Balloon> balloons = this.balloonService.listAll();
+        int counter = balloonService.getCounter();
         model.addAttribute("balloons", balloons);
+        model.addAttribute("counter",counter);
         return "listBalloons";
     }
     @GetMapping("/edit-balloon/{id}")

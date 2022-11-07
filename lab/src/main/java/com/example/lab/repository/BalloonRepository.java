@@ -24,6 +24,7 @@ public class BalloonRepository {
     }
     public void deleteById(Long id)
     {
+        DataHolder.counter++;
         DataHolder.balloonList.removeIf(i->i.getId().equals(id));
     }
     public Optional<Balloon> findById(Long id)

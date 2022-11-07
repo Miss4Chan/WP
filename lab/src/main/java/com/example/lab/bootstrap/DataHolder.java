@@ -16,9 +16,11 @@ public class DataHolder {
     public static List<Balloon> balloonList = new ArrayList<>();
     public static List<Order> orderList = new ArrayList<>();
     public static List<Manufacturer> manufacturerList = new ArrayList<>();
+    public static int counter; // bonus baranje
     @PostConstruct
     public void init()
     {
+        counter=0; // bonus baranje
         //list filling
         Manufacturer m1=new Manufacturer("Nike","USA","NY");
         Manufacturer m2=new Manufacturer("Adidas","USA","NY");
