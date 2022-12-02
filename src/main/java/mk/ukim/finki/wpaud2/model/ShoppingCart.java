@@ -1,17 +1,28 @@
 package mk.ukim.finki.wpaud2.model;
 
 import lombok.Data;
+import lombok.Generated;
+import lombok.NoArgsConstructor;
 import mk.ukim.finki.wpaud2.model.enums.ShoppingCartStatus;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 @Data
+@Entity
+@NoArgsConstructor
 public class ShoppingCart {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime dateCreated;
+    @ManyToOne
+    @JoinColumn(name = "user_username")
     private User user;
+    @ManyToMany
     private List<Product> products;
+    @Enumerated(EnumType.STRING)
     private ShoppingCartStatus status;
 
     public ShoppingCart(User user) {
