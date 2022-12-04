@@ -1,20 +1,26 @@
 package com.example.lab.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Data
+@Entity
+@NoArgsConstructor
 public class Order {
     String balloonColor;
     String balloonSize;
-    String clientName;
-    String clientAddress;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long orderId;
 
-    public Order(String balloonColor, String balloonSize, String clientName, String clientAddress) {
+    public Order(String balloonColor, String balloonSize) {
         this.balloonColor = balloonColor;
         this.balloonSize = balloonSize;
-        this.clientName = clientName;
-        this.clientAddress = clientAddress;
         this.orderId = (long) (Math.random() * 1000);
     }
 }

@@ -1,9 +1,17 @@
 package com.example.lab.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
+@Entity
+@NoArgsConstructor
+@Table(name="shop-users")
 public class Manufacturer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String country;
