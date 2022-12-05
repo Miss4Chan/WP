@@ -20,7 +20,11 @@ public class OrderServiceImpl implements OrderService {
     public Order placeOrder(String balloonColor, String balloonSize, LocalDateTime dateCreated) {
         return OrderRepository.save(new Order(balloonColor,balloonSize,dateCreated));
     }
+    @Override
+    public List<Order> findAllByFilterDate(LocalDateTime dateFrom, LocalDateTime dateTo) {
+        return OrderRepository.findAllByDateCreatedBetween(dateFrom, dateTo);
 
+    }
     @Override
     public List<Order> listAll() {
         return OrderRepository.findAll();

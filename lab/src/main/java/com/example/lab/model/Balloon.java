@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="shop-users")
+@Table(name="balloon-table")
 public class Balloon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,6 @@ public class Balloon {
     Manufacturer manufacturer;
 
     public Balloon(String name, String description,Manufacturer manufacturer) {
-        this.id = (long) (Math.random() * 1000);
         this.name = name;
         this.manufacturer=manufacturer;
         this.description = description;

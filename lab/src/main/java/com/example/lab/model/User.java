@@ -16,8 +16,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private String name;
-    private String surname;
+//    private String name;
+    @Convert(converter = UserFullNameConverter.class)
+    private UserFullname userFullname;
+ //   private String surname;
     private String password;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;

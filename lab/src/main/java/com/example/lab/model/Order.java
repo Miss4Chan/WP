@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Order {
     String balloonColor;
     String balloonSize;
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss")
     private LocalDateTime dateCreated;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

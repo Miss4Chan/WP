@@ -7,16 +7,20 @@
 <body>
 <div>
   <table>
+    <thead>
     <tr>
-      <th>Orders</th>
+      <th scope="col">Balloon Color</th>
+      <th scope="col">Balloon Size</th>
+      <th scope="col">Order Creation Date</th>
     </tr>
-    <tr>
-      <td th:each="order : ${orders}">
-      <th:block th:text="${order.getBalloonColor()}"></th:block>
-      <th:block th:text="${order.getBalloonSize()}"></th:block>
-        <br>
-      </td>
+    </thead>
+    <tbody>
+    <tr th:each="order: ${orders}">
+      <td th:text="${order.balloonColor}"></td>
+      <td th:text="${order.balloonSize}"></td>
+      <td th:text="${#temporals.format(order.dateCreated, 'dd-MM-yyyy HH:mm:ss')}"></td>
     </tr>
+    </tbody>
   </table>
 </div>
 </body>

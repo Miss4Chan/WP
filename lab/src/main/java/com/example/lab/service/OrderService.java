@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface OrderService {
     Order placeOrder(String balloonColor, String balloonSize, LocalDateTime dateCreated);
-    public List<Order> listAll();
+    List<Order> listAll();
+    List<Order> findAllByFilterDate(LocalDateTime dateFrom, LocalDateTime dateTo);
 }
