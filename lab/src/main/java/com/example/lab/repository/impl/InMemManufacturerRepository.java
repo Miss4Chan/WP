@@ -1,4 +1,4 @@
-package com.example.lab.repository;
+package com.example.lab.repository.impl;
 
 import com.example.lab.bootstrap.DataHolder;
 import com.example.lab.model.Manufacturer;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ManufacturerRepository {
+public class InMemManufacturerRepository {
     public List<Manufacturer> findAll()
     {
         return DataHolder.manufacturerList;

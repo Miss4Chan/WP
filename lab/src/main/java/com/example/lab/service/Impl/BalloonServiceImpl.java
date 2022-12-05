@@ -4,8 +4,8 @@ import com.example.lab.bootstrap.DataHolder;
 import com.example.lab.model.Balloon;
 import com.example.lab.model.Exceptions.ManufacturerNotFoundException;
 import com.example.lab.model.Manufacturer;
-import com.example.lab.repository.BalloonRepository;
-import com.example.lab.repository.ManufacturerRepository;
+import com.example.lab.repository.jpa.BalloonRepository;
+import com.example.lab.repository.jpa.ManufacturerRepository;
 import com.example.lab.service.BalloonService;
 import org.springframework.stereotype.Service;
 
@@ -14,39 +14,39 @@ import java.util.Optional;
 
 @Service
 public class BalloonServiceImpl implements BalloonService {
-    private final BalloonRepository balloonRepository;
-    private final ManufacturerRepository manufacturerRepository;
+    private final BalloonRepository BalloonRepository;
+    private final ManufacturerRepository ManufacturerRepository;
 
-    public BalloonServiceImpl(BalloonRepository balloonRepository, ManufacturerRepository manufacturerRepository, ManufacturerRepository manufacturerRepository1) {
-        this.balloonRepository = balloonRepository;
-        this.manufacturerRepository = manufacturerRepository1;
+    public BalloonServiceImpl(BalloonRepository BalloonRepository, ManufacturerRepository ManufacturerRepository) {
+        this.BalloonRepository = BalloonRepository;
+        this.ManufacturerRepository = ManufacturerRepository;
     }
 
     @Override
     public List<Balloon> listAll() {
-        return balloonRepository.findAllBalloons();
+        return BalloonRepository.findAll();
     }
 
     @Override
     public List<Balloon> searchByNameOrDescription(String text) {
-        return balloonRepository.findAllByNameOrDescription(text);
+        return BalloonRepository.findAllByNameOrDescription(text,text);
     }
 
     @Override
-    public Optional<Balloon> save(String name, String desc, Long manufacturerId) {
-        Manufacturer m = manufacturerRepository.findById(manufacturerId).
+    public Balloon save(String name, String desc, Long manufacturerId) {
+        Manufacturer m = ManufacturerRepository.findById(manufacturerId).
         orElseThrow(() -> new ManufacturerNotFoundException(manufacturerId));
-        return balloonRepository.save(name,desc,m);
+        return BalloonRepository.save(new Balloon(name,desc,m));
     }
 
     @Override
     public void deleteById(Long id) {
-        balloonRepository.deleteById(id);
+        BalloonRepository.deleteById(id);
     }
 
     @Override
     public Optional<Balloon> findById(Long id) {
-        return balloonRepository.findById(id);
+        return BalloonRepository.findById(id);
     }
 
     @Override

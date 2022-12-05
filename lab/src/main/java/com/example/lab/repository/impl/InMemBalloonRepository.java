@@ -1,4 +1,4 @@
-package com.example.lab.repository;
+package com.example.lab.repository.impl;
 
 import com.example.lab.bootstrap.DataHolder;
 import com.example.lab.model.Balloon;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Repository
-public class BalloonRepository {
+public class InMemBalloonRepository {
     public List<Balloon> findAllBalloons() { return DataHolder.balloonList;}
     public List<Balloon> findAllByNameOrDescription(String text) {
         return DataHolder.balloonList.stream().filter(b->b.getName().contains(text)

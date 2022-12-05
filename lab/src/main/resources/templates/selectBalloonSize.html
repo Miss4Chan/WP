@@ -29,9 +29,15 @@
 </head>
 <body>
 <header>
-  <h1>Balloon Order page - Select Balloon Size </h1>
+  <h1>Balloon Order page - Select Balloon Size </h1>x
 </header>
 <section>
+  <form method="POST" action="/balloons/select-date">
+    <h2>Choose date:</h2>
+    <input type="datetime-local" name="dateCreated" class="form-control"
+           placeholder="Select date of creation" required="" autofocus=""> <br/>
+    <input class="btn btn-dark" type="submit" th:value="Confirm">
+  </form>
   <form method="POST" action="/balloons/selectBalloonSize">
     <h2>Choose balloon size:</h2>
     <label>

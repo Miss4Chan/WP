@@ -12,12 +12,10 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="lab" target="11" />
-      <module name="WebProgramming" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="WebProgramming" options="-parameters" />
       <module name="lab" options="-parameters" />
     </option>
   </component>

@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.util.Random;
 
 @WebServlet(name="balloon-list-servlet",urlPatterns = "/Servlet")
-public class BalloonListSevlet extends HttpServlet {
+public class BalloonListServlet extends HttpServlet {
     private final BalloonService balloonService;
     private final SpringTemplateEngine springTemplateEngine;
 
-    public BalloonListSevlet(BalloonService balloonService, SpringTemplateEngine springTemplateEngine) {
+    public BalloonListServlet(BalloonService balloonService, SpringTemplateEngine springTemplateEngine) {
         this.balloonService = balloonService;
         this.springTemplateEngine = springTemplateEngine;
     }
@@ -34,7 +34,7 @@ public class BalloonListSevlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String color = req.getParameter("color");
         Long Id = new Random().nextLong();
-        Order order = new Order(color,"","","");
+        Order order = new Order(color,"",null);
         WebContext context = new WebContext(req,resp,req.getServletContext());
         req.getSession().setAttribute("order",order);
         resp.sendRedirect("/selectBalloon");
