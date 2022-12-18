@@ -9,6 +9,7 @@
 <div>
       <form action="/balloons/add" method="POST">
         <div>
+          <input id="id" type="hidden" name="id" th:value="(${balloon} != null ? ${balloon.getId()} : '')">
           <label for="name">Balloon name</label>
           <input type="text"
                  class="form-control"
@@ -45,6 +46,18 @@
         <button type="submit" value="Submit">Submit</button>
         <a type="button" href="/balloons">Back</a>
       </form>
+  <th:block sec:authorize="isAuthenticated()">
+    <form>
+      <a href="/logout">
+        <i>Logout</i>
+      </a>
+    </form>
+  </th:block>
+  <th:block sec:authorize="!isAuthenticated()">
+    <form>
+      <a href="/login">Login</a>
+    </form>
+  </th:block>
 </div>
 
 </body>

@@ -9,4 +9,12 @@ import java.io.Serializable;
 public class UserFullname implements Serializable {
     String name;
     String surname;
+
+    public UserFullname(String name, String surname) {
+
+    }
+
+    public UserFullname() {
+
+    }
 }

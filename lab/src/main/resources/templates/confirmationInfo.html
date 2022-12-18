@@ -51,7 +51,18 @@
   <div>
     <a href="/balloons/orders">Check your orders</a>
     <a href="/balloons">Back</a>
-    <a href="/logout">Log out</a>
+    <th:block sec:authorize="isAuthenticated()">
+      <form>
+        <a href="/logout">
+          <i>Logout</i>
+        </a>
+      </form>
+    </th:block>
+    <th:block sec:authorize="!isAuthenticated()">
+      <form>
+        <a href="/login">Login</a>
+      </form>
+    </th:block>
   </div>
 </section>
 </body>

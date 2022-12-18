@@ -8,6 +8,7 @@ import com.example.lab.service.ManufacturerService;
 import com.example.lab.service.OrderService;
 import com.example.lab.service.UserService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/balloons")
+@RequestMapping(value = {"/", "/balloons"})
 public class BalloonController {
     private final BalloonService balloonService;
     private final ManufacturerService manufacturerService;
@@ -52,6 +53,7 @@ public class BalloonController {
         return "redirect:/products?error=ProductNotFound";
     }
     @GetMapping("/add-balloon")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getAddBalloonPage(Model model)
     {
         List<Manufacturer> manufacturers = this.manufacturerService.findAll();
@@ -59,11 +61,15 @@ public class BalloonController {
         return "add-balloon";
     }
     @PostMapping("/add")
-    public String saveBalloon(@RequestParam String name,
+    public String saveBalloon(@RequestParam(required = false) Long id,
+                              @RequestParam String name,
                               @RequestParam String description,
                               @RequestParam Long manufacturer)
     {
-        this.balloonService.save(name,description, manufacturer);
+        if (id != null)
+            balloonService.edit(id, name, description, manufacturer);
+        else
+            this.balloonService.save(name,description, manufacturer);
         return "redirect:/balloons";
     }
     @DeleteMapping("/delete/{id}")

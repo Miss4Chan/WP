@@ -19,15 +19,18 @@
         <li th:each="balloon : ${balloons}">
             <th:block th:text="${balloon.getName()}"></th:block>
             <th:block th:text="${balloon.getDescription()}"></th:block>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
             <th:block><form th:action="@{'/balloons/delete/{id}' (id=${balloon.getId()})}" th:method="DELETE">
                 <button type="submit" class="btn btn-sm btn-danger">Delete</button>
             </form></th:block>
-            <th:block><a th:href="@{'/balloons/edit-balloon/{id}' (id=${balloon.getId()})}" class="btn btn-sm btn-info">Edit</a></th:block>
+                <th:block><a th:href="@{'/balloons/edit-balloon/{id}' (id=${balloon.getId()})}" class="btn btn-sm btn-info">Edit</a></th:block></th:block>
         </li>
     </ul>
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
     <div>
         <a href="/balloons/add-balloon">Add new balloon</a>
     </div>
+    </th:block>
     <form method="POST" action="/balloons/selectBalloon">
     <h2>Choose balloon color:</h2>
     <label>
@@ -48,6 +51,20 @@
     </form>
     <div>
         <th:block th:text="${counter}"></th:block>
+    </div>
+    <div>
+        <th:block sec:authorize="isAuthenticated()">
+            <form>
+                <a href="/logout">
+                    <i>Logout</i>
+                </a>
+            </form>
+        </th:block>
+        <th:block sec:authorize="!isAuthenticated()">
+            <form>
+                <a href="/login">Login</a>
+            </form>
+        </th:block>
     </div>
 </main>
 </body>
