@@ -13,7 +13,6 @@ public class UserFullname implements Serializable {
     public UserFullname(String name, String surname) {
 
     }
-
     public UserFullname() {
 
     }

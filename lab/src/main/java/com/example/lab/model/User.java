@@ -18,10 +18,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-//    private String name;
+    private String name;
     @Convert(converter = UserFullNameConverter.class)
     private UserFullname userFullname;
- //   private String surname;
+    private String surname;
     private String password;
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateOfBirth;
@@ -31,7 +31,26 @@ public class User {
     public User(String username, UserFullname userFullname, String password, LocalDate dateOfBirth) {
         this.username = username;
         this.userFullname = userFullname;
+        this.name=userFullname.getName();
+        this.surname=userFullname.getSurname();
         this.password = password;
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public User(String username, String name, String surname, String password, LocalDate dateOfBirth) {
+        this.username = username;
+        this.userFullname = new UserFullname(name,surname);
+        this.name=name;
+        this.surname=surname;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getName() {
+        return userFullname.getName();
+    }
+
+    public String getSurname() {
+        return userFullname.getSurname();
     }
 }

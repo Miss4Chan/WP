@@ -40,8 +40,9 @@ public class AuthServiceImpl implements AuthService {
         if (!userRepository.findByUsername(username).isEmpty() ||
                 userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
-
-        User user = new User(username,new UserFullname(name,surname), password, dateOfBirth);
+        System.out.println(name);
+        System.out.println(surname);
+        User user = new User(username,name,surname, password, dateOfBirth);
         return userRepository.save(user);
     }
 
